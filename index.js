@@ -19,7 +19,7 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.post("/profile", verifyToken, (req, res) => {
+app.post("/profile", verifyToken, (req, res) => {    // apply middleware on single route
     jwt.verify(req.token, secretKey, (err, authData) => {
         if (err) {
             res.send({ result: "Invalid token" });
@@ -32,7 +32,7 @@ app.post("/profile", verifyToken, (req, res) => {
     });
 });
 
-function verifyToken(req, res, next) {
+function verifyToken(req, res, next) {                // middleware
     const bearerHeader = req.headers['authorization'];
     if (typeof bearerHeader !== 'undefined') {
         const bearer = bearerHeader.split(" "); // Split by space
